@@ -1,0 +1,16 @@
+﻿# Python / venv
+.venv/
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Data & models (too big for GitHub)
+data/raw/
+data/interim/
+data/processed/
+models/
+
+# Streamlit cache
+.streamlit/

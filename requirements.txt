@@ -1,0 +1,54 @@
+﻿# Real-Time Fraud Detection (Semi-Supervised: AE + PU)
+
+**One-liner:** Detect rare credit-card fraud by combining an **Autoencoder** (unsupervised anomaly) with **Positive–Unlabeled learning**; fuse scores to maximize **PR-AUC** and **Precision@K**.
+
+## Results (CreditCard dataset)
+- PR-AUC (Ensemble): ~0.729, ROC-AUC: ~0.965
+- Precision@50: ~0.84, Precision@100: ~0.60
+
+## Run locally
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -3.11 -m pip install --upgrade pip
+pip install -r requirements.txt
+
+# Put creditcard.csv in data/raw/  (not committed to repo)
+py -3.11 src/train.py --data data/raw/creditcard.csv --target Class --id Time
+py -3.11 src/evaluate.py --run_dir models\run_YYYYMMDD_HHMM
+
+# Visuals
+py -3.11 src\dump_scores.py --run_dir models\run_YYYYMMDD_HHMM --data data\raw\creditcard.csv --target Class --id Time
+py -3.11 src\plot_pr.py --scores_csv models\run_YYYYMMDD_HHMM\scores_test.csv --out reports\pr_ens.png --thr 0.028
+py -3.11 src\plot_precatk.py --scores_csv models\run_YYYYMMDD_HHMM\scores_test.csv --out reports\precision_at_k.png
+
+# Demo app
+py -3.11 -m streamlit run app.py
+
+@'
+# Real-Time Fraud Detection (Semi-Supervised: AE + PU)
+
+**One-liner:** Detect rare credit-card fraud by combining an **Autoencoder** (unsupervised anomaly) with **Positive–Unlabeled learning**; fuse scores to maximize **PR-AUC** and **Precision@K**.
+
+## Results (CreditCard dataset)
+- PR-AUC (Ensemble): ~0.729, ROC-AUC: ~0.965
+- Precision@50: ~0.84, Precision@100: ~0.60
+
+## Run locally
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -3.11 -m pip install --upgrade pip
+pip install -r requirements.txt
+
+# Put creditcard.csv in data/raw/  (not committed to repo)
+py -3.11 src/train.py --data data/raw/creditcard.csv --target Class --id Time
+py -3.11 src/evaluate.py --run_dir models\run_YYYYMMDD_HHMM
+
+# Visuals
+py -3.11 src\dump_scores.py --run_dir models\run_YYYYMMDD_HHMM --data data\raw\creditcard.csv --target Class --id Time
+py -3.11 src\plot_pr.py --scores_csv models\run_YYYYMMDD_HHMM\scores_test.csv --out reports\pr_ens.png --thr 0.028
+py -3.11 src\plot_precatk.py --scores_csv models\run_YYYYMMDD_HHMM\scores_test.csv --out reports\precision_at_k.png
+
+# Demo app
+py -3.11 -m streamlit run app.py

@@ -1,0 +1,21 @@
+seed: 42
+train:
+  val_size: 0.2
+  test_size: 0.2
+  scaler: standard
+  class_weight: balanced
+  ae:
+    epochs: 20
+    batch_size: 1024
+    lr: 1e-3
+    hidden_dims: [64, 32, 8]
+    dropout: 0.05
+  pu:
+    max_iter: 200
+active_learning:
+  rounds: 5
+  query_batch: 200
+  uncertainty_band: 0.45-0.55
+stream:
+  chunk_size: 5000
+  drift_delta: 0.002
